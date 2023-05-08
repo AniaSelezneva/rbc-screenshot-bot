@@ -70,3 +70,8 @@ bot.onText(/\/start/, async (msg) => {
     options
   );
 });
+
+process.on("SIGINT", () => {
+  fs.unlinkSync("lockfile");
+  process.exit();
+});
