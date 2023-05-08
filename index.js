@@ -1,16 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
 const puppeteer = require("puppeteer");
-const fs = require("fs");
 require("dotenv").config();
-
-// Check if the lockfile exists
-if (fs.existsSync("lockfile")) {
-  console.error("The bot is already running");
-  process.exit(1); // Exit the process
-}
-
-// Create the lockfile
-fs.writeFileSync("lockfile", "");
 
 // Создаем бота и указываем токен
 const bot = new TelegramBot(process.env.TG_TOKEN, { polling: true });
@@ -69,9 +59,4 @@ bot.onText(/\/start/, async (msg) => {
     "Нажмите на кнопку, чтобы получить скриншот главной страницы РБК",
     options
   );
-});
-
-process.on("SIGINT", () => {
-  fs.unlinkSync("lockfile");
-  process.exit();
 });
